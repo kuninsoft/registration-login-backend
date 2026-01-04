@@ -13,7 +13,7 @@ namespace RegistrationAndLoginApi.Controllers;
 [Route("/v1/[controller]")]
 public class MainController(AppDbContext dbContext, IAuthService authService, ILogger<MainController> logger) : ControllerBase
 {
-    [HttpGet]
+    [HttpGet(nameof(Test))]
     public IActionResult Test()
     {
         logger.LogInformation("Test was executed successfully");
@@ -21,7 +21,7 @@ public class MainController(AppDbContext dbContext, IAuthService authService, IL
         return Ok();
     }
 
-    [HttpPost]
+    [HttpPost(nameof(AssignAdmin))]
     public async Task<ActionResult<AuthResponseDto>> AssignAdmin()
     {
         logger.LogTrace("AssignAdmin Start");
@@ -64,7 +64,7 @@ public class MainController(AppDbContext dbContext, IAuthService authService, IL
         return new AuthResponseDto(accessToken, refreshToken);
     }
     
-    [HttpGet]
+    [HttpGet(nameof(AdminTest))]
     [Authorize(Roles = Roles.Admin)]
     public IActionResult AdminTest()
     {

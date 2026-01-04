@@ -17,7 +17,7 @@ public class AuthController(IPasswordService passwordService, IAuthService authS
     ILogger<AuthController> logger)
     : ControllerBase
 {
-    [HttpPost]
+    [HttpPost(nameof(Register))]
     public async Task<ActionResult<AuthResponseDto>> Register([FromBody] RegisterRequestDto registerRequest)
     {
         if (!ModelState.IsValid)
@@ -59,7 +59,7 @@ public class AuthController(IPasswordService passwordService, IAuthService authS
         return new AuthResponseDto(accessToken, refreshToken);
     }
 
-    [HttpPost]
+    [HttpPost(nameof(Login))]
     public async Task<ActionResult<AuthResponseDto>> Login([FromBody] LoginRequestDto loginRequest)
     {
         if (!ModelState.IsValid)
@@ -93,7 +93,7 @@ public class AuthController(IPasswordService passwordService, IAuthService authS
         return new AuthResponseDto(accessToken, refreshToken);
     }
 
-    [HttpPost]
+    [HttpPost(nameof(Refresh))]
     public ActionResult<AuthResponseDto> Refresh([FromBody] RefreshRequestDto refreshRequest)
     {
         if (!ModelState.IsValid)
