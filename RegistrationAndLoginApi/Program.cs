@@ -12,6 +12,26 @@ WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddOpenApi();
 builder.Services.AddLogging();
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AuthCors", policy =>
+    {
+        string[] origins = builder.Configuration
+                                  .GetSection("Cors:AllowedOrigins")
+                                  .Get<string[]>() ?? [];
+
+        foreach (string origin in origins)
+        {
+            Console.WriteLine("Origin: " + origin);
+        }
+        
+        policy
+            .WithOrigins(origins)
+            .AllowAnyHeader()
+            .AllowAnyMethod()
+            .AllowCredentials();
+    });
+});
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options =>
@@ -67,6 +87,8 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
        });
 
 WebApplication app = builder.Build();
+
+app.UseCors("AuthCors");
 
 using (IServiceScope scope = app.Services.CreateScope())
 {

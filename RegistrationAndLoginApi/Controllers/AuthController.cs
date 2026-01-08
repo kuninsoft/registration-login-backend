@@ -12,7 +12,7 @@ namespace RegistrationAndLoginApi.Controllers;
 
 [AllowAnonymous]
 [ApiController]
-[Route("/v1/[controller]")]
+[Route("[controller]")]
 public class AuthController(IPasswordService passwordService, IAuthService authService, AppDbContext dbContext, 
     ILogger<AuthController> logger)
     : ControllerBase

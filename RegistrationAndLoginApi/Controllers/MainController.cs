@@ -10,7 +10,7 @@ namespace RegistrationAndLoginApi.Controllers;
 
 [Authorize]
 [ApiController]
-[Route("/v1/[controller]")]
+[Route("[controller]")]
 public class MainController(AppDbContext dbContext, IAuthService authService, ILogger<MainController> logger) : ControllerBase
 {
     [HttpGet(nameof(Test))]
