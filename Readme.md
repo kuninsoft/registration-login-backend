@@ -1,4 +1,5 @@
 # Registration & Login API (ASP.NET Core)
+Try it out (SPA Front-end): https://calm-cliff-059303d03.1.azurestaticapps.net/
 
 ## Overview
 
